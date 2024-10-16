@@ -1,2 +1,4 @@
 venv
 _*.py
+.env
+.timetracker
