@@ -27,8 +27,8 @@ ical_url = os.getenv("ICAL_URL")
 calendar_id = os.getenv("CALENDAR_ID")
 credentials = service_account.Credentials.from_service_account_file(f'{FILE_ROOT}/cr.json')
 
-if not os.path.exists(f"{FILE_ROOT}/{calendar_id[0:5]}.txt"):
-    with open(f"{FILE_ROOT}/{calendar_id[0:5]}.txt", 'w') as f:
+if not os.path.exists(f"{FILE_ROOT}/page_token_{calendar_id[0:5]}.txt"):
+    with open(f"{FILE_ROOT}/page_token_{calendar_id[0:5]}.txt", 'w') as f:
         f.write('')
 
 service = build('calendar', 'v3', credentials=credentials)
@@ -42,7 +42,7 @@ def fetch_ical_data(ical_url: str) -> Calendar:
 
 
 def load_page_token(cal_id: str) -> str | None:
-    path = f"{FILE_ROOT}/page_token{cal_id[0:5]}.txt"
+    path = f"{FILE_ROOT}/page_token_{cal_id[0:5]}.txt"
     try:
         with open(path, 'r') as f:
             page_token = f.read()
@@ -76,7 +76,7 @@ def delete_old_events(cal_id: str) -> None:
         # Check if there are items in the events['items'] list
         if events['items']:
             logger.info(f'Page {counter} has {len(events["items"])} events')
-        with open(f"/home/kake/koodi/kalenterisynk/page_token{cal_id[0:5]}.txt", 'w') as f:
+        with open(f"/home/kake/koodi/kalenterisynk/page_token_{cal_id[0:5]}.txt", 'w') as f:
             f.write(page_token)
         for event in events['items']:
             old_events.append(event)
