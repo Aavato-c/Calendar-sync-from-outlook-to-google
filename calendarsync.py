@@ -76,7 +76,7 @@ def delete_old_events(cal_id: str) -> None:
         # Check if there are items in the events['items'] list
         if events['items']:
             logger.info(f'Page {counter} has {len(events["items"])} events')
-        with open(f"/home/kake/koodi/kalenterisynk/page_token_{cal_id[0:5]}.txt", 'w') as f:
+        with open(f"{FILE_ROOT}/page_token_{cal_id[0:5]}.txt", 'w') as f:
             f.write(page_token)
         for event in events['items']:
             old_events.append(event)
