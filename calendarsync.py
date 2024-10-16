@@ -27,6 +27,10 @@ ical_url = os.getenv("ICAL_URL")
 calendar_id = os.getenv("CALENDAR_ID")
 credentials = service_account.Credentials.from_service_account_file(f'{FILE_ROOT}/cr.json')
 
+if not os.path.exists(f"{FILE_ROOT}/{calendar_id[0:5]}.txt"):
+    with open(f"{FILE_ROOT}/{calendar_id[0:5]}.txt", 'w') as f:
+        f.write('')
+
 service = build('calendar', 'v3', credentials=credentials)
 
 
