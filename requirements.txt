@@ -1,0 +1,6 @@
+# Python3.12
+google-api-python-client==2.149.0
+google-auth-oauthlib==1.2.1
+icalendar==6.0.1
+python-dotenv==1.0.1
+requests==2.32.3
