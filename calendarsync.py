@@ -80,7 +80,7 @@ def delete_old_events(cal_id: str) -> None:
             f.write(page_token)
         for event in events['items']:
             old_events.append(event)
-            page_token = events.get('nextPageToken')
+        page_token = events.get('nextPageToken')
         if not page_token:
             break
 
