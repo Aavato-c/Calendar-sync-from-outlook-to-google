@@ -58,14 +58,16 @@ def load_page_token(cal_id: str) -> str | None:
 def delete_old_events(cal_id: str) -> None:
     old_events = []
     page_token = load_page_token(cal_id)
+   
     try:
         response = service.events().list(calendarId=cal_id, pageToken=page_token).execute()
+    
     except Exception as e:
         logger.error(f'Error fetching events: {e}')
         raise e
 
     counter = 0  # Just to prevent an infinite loop and to keep track of the pages
-    max_counter = 300
+    max_counter = 3000
     while True:
         counter += 1
         if counter > max_counter:
@@ -93,7 +95,7 @@ def delete_old_events(cal_id: str) -> None:
             logger.error(f'Error deleting event: {e}')
             continue
         
-        logger.info(f'Deleted {len(old_events)} events')
+    logger.info(f'Deleted {len(old_events)} events')
 
 
 def update_google_calendar(calendar_id, events):
