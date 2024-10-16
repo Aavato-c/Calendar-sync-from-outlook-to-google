@@ -37,7 +37,7 @@ def fetch_ical_data(ical_url: str) -> Calendar:
 
 def load_page_token(cal_id: str) -> str | None:
     path = f"{FILE_ROOT}/page_token{cal_id[0:5]}.txt"
-    try
+    try:
       with open(path, 'r') as f:
         page_token = f.read()
     except FileNotFoundError:
